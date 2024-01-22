@@ -14,6 +14,9 @@ class CategoryController extends Controller
     }
     public function index()
     {
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized'); // or redirect to login page
+        }
         $categories = Category::all();
         return view('admin.category.index', compact('categories'));
     }

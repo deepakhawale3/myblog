@@ -20,6 +20,9 @@ class AdminController extends Controller
     public function index()
     {
         // $totalProperties = Property::count();
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized'); // or redirect to login page
+        }
         $totalBloggers = User::where('role', 'blogger')->count();
         $totalBlogsCount = Blog::count();
         return view('admin.dashboard', compact( 'totalBloggers','totalBlogsCount'));
