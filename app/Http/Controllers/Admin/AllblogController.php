@@ -19,7 +19,7 @@ class AllblogController extends Controller
     public function index()
     {
         if (auth()->user()->role !== 'admin') {
-            abort(403, 'Unauthorized'); // or redirect to login page
+            abort(403, 'Unauthorized'); 
         }
         $blogs = Blog::orderBy('id', 'desc')->simplePaginate(10);
         return view('admin.allblog.index', compact('blogs'));

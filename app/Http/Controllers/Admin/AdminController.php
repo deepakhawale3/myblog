@@ -19,9 +19,9 @@ class AdminController extends Controller
     }
     public function index()
     {
-        // $totalProperties = Property::count();
+        
         if (auth()->user()->role !== 'admin') {
-            abort(403, 'Unauthorized'); // or redirect to login page
+            abort(403, 'Unauthorized'); 
         }
         $totalBloggers = User::where('role', 'blogger')->count();
         $totalBlogsCount = Blog::count();

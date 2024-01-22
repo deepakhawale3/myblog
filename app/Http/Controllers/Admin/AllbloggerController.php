@@ -14,13 +14,14 @@ class AllbloggerController extends Controller
      */
     public function __construct()
     {
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'Unauthorized'); // or redirect to login page
-        }
+        
         $this->middleware('auth');
     }
     public function index()
     {
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized'); 
+        }
         $bloggers = User::where('role', 'blogger')
         ->orderBy('created_at', 'desc')
         ->simplePaginate(10);

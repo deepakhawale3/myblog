@@ -18,7 +18,7 @@ class BlogController extends Controller
     public function index()
     {
         if (auth()->user()->role !== 'blogger') {
-            abort(403, 'Unauthorized'); // or redirect to login page
+            abort(403, 'Unauthorized'); 
         }
         $bloggerId = Auth::id();
         $blogs = Blog::where('blogger_id', $bloggerId)

@@ -20,7 +20,7 @@ class BloggerController extends Controller
     {
         //
         if (auth()->user()->role !== 'blogger') {
-            abort(403, 'Unauthorized'); // or redirect to login page
+            abort(403, 'Unauthorized');
         }
         $BlogCount = Blog::where('blogger_id', auth()->user()->id)->count();
         return view('blogger.dashboard', compact('BlogCount'));
