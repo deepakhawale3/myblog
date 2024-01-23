@@ -3,10 +3,11 @@
 
 <head>
     <meta charset="utf-8">
-    <title>{{$title}}</title>
+    <title><?php echo !empty($title) ? $title : 'MyBlog'; ?></title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta name="keywords" content="{{$meta_keyword}}" >
-    <meta  name="description" content="{{$meta_description}}">
+    <meta name="keywords" content="<?php echo !empty($meta_keyword) ? $meta_keyword : 'MyBlog'; ?>">
+    <meta name="description" content="<?php echo !empty($meta_description) ? $meta_description : 'MyBlog - Blog Website'; ?>">
+
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
@@ -76,7 +77,7 @@
                 <div class="navbar-nav mr-auto py-0">
                     <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
                     
-                    <a href="" class="nav-item nav-link">Authors</a>
+                    <!-- <a href="" class="nav-item nav-link">Authors</a> -->
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
                         <div class="dropdown-menu rounded-0 m-0">
