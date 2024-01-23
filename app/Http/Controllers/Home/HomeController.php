@@ -17,6 +17,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $title='MyBlogs- Latest Blogs From Bloggers';
+        $meta_description='MyBlog is Website for Blogger to add Blogs, Blogger Can Register Themself.';
+        $meta_keyword= 'MyBlogs, Latest Blogs, Blogger, Technology, Entertainment, Edication, Sports, Business';
         // Get all blogs in descending order
         $allBlogs = Blog::orderBy('created_at', 'desc')->where('status', 1)->limit(4)->get();
 
@@ -50,7 +53,10 @@ class HomeController extends Controller
             'businessBlogs',
             'entertainmentBlogs',
             'economicalBlogs',
-            'randomBlogs'
+            'randomBlogs',
+            'title',
+            'meta_description',
+            'meta_keyword'            
         ));
     }
 
@@ -122,6 +128,10 @@ class HomeController extends Controller
 
     public function showCategoryBlogs($categorySlug)
     {
+        $title='MyBlogs- Latest Blogs From Bloggers';
+        $meta_description='MyBlog is Website for Blogger to add Blogs, Blogger Can Register Themself.';
+        $meta_keyword= 'MyBlogs, Latest Blogs, Blogger, Technology, Entertainment, Edication, Sports, Business';
+        
         // Get the category based on the slug
         $category = Category::where('name', $categorySlug)->first();
 
@@ -135,18 +145,22 @@ class HomeController extends Controller
         // Get blogs randomly (limit 6)
         $randomBlogs = Blog::inRandomOrder()->where('status', 1)->limit(5)->get();
 
-        return view('home.category', compact('category', 'categoryBlogs','randomBlogs'));
+        return view('home.category', compact('category', 'categoryBlogs','randomBlogs','title','meta_description','meta_keyword' ));
     }
 
     public function showBlog($slug)
     {
         $blog = Blog::where('slug', $slug)->firstOrFail();
 
+        $title= $blog->meta_title;
+        $meta_description= $blog->meta_description;
+        $meta_keyword=  $blog->meta_keyword;
+        
         $randomBlogs = Blog::inRandomOrder()->where('status', 1)->limit(5)->get();
          // Fetch comments associated with the blog
         $comments = Comment::where('blog_id', $blog->id)->where('status', 1)->get();
 
-        return view('home.blog', compact('blog','randomBlogs','comments'));
+        return view('home.blog', compact('blog','randomBlogs','comments', 'title','meta_description','meta_keyword'));
     }
 
 
@@ -178,12 +192,15 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
-
+        $title='MyBlogs- Latest Blogs From Bloggers';
+        $meta_description='MyBlog is Website for Blogger to add Blogs, Blogger Can Register Themself.';
+        $meta_keyword= 'MyBlogs, Latest Blogs, Blogger, Technology, Entertainment, Edication, Sports, Business';
+        
         $blogs = Blog::where('title', 'like', '%' . $keyword . '%')
                     ->orderBy('created_at', 'desc')
                     ->paginate(10);
         $randomBlogs = Blog::inRandomOrder()->where('status', 1)->limit(5)->get();
-        return view('home.search', compact('blogs', 'keyword','randomBlogs'));
+        return view('home.search', compact('blogs', 'keyword','randomBlogs','title','meta_description','meta_keyword'));
     }
 
     public function subscribeNewsletter(Request $request)

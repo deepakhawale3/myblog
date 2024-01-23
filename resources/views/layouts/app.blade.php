@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="utf-8">
-    <title>My Blog</title>
+    <title>{{$title}}</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Free HTML Templates" name="keywords">
-    <meta content="Free HTML Templates" name="description">
+    <meta name="keywords" content="{{$meta_keyword}}" >
+    <meta  name="description" content="{{$meta_description}}">
 
     <!-- Favicon -->
     <link href="img/favicon.ico" rel="icon">
